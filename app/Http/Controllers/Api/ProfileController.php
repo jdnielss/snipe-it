@@ -80,17 +80,28 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createApiToken(Request $request) {
+        // dd($request);
 
         if (!Gate::allows('self.api')) {
             abort(403);
         }
 
         $accessTokenName = $request->input('name', 'Auth Token');
+        $accessToken = Auth::user()->createToken($accessTokenName)->accessToken;
 
-        if ($accessToken = Auth::user()->createToken($accessTokenName)->accessToken) {
+        if ($request->boolean('external')) {
+            $userId = $request->input('userId');
+            $token = DB::table('oauth_access_tokens')->where('user_id', '=', $userId)->where('name','=',$accessTokenName)->orderBy('created_at', 'desc')->first();
+            
+            $accessTokenData['id'] = $token->id;
+            $accessTokenData['token'] = $accessToken;
+            $accessTokenData['name'] = $accessTokenName;
+            return response()->json(Helper::formatStandardApiResponse('success', $accessTokenData, 'Personal access token '.$accessTokenName.' created successfully'));
 
+        } else if (!$request->boolean('external')) {
             // Get the ID so we can return that with the payload
             $token = DB::table('oauth_access_tokens')->where('user_id', '=', Auth::user()->id)->where('name','=',$accessTokenName)->orderBy('created_at', 'desc')->first();
+
             $accessTokenData['id'] = $token->id;
             $accessTokenData['token'] = $accessToken;
             $accessTokenData['name'] = $accessTokenName;

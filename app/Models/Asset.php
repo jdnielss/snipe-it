@@ -187,6 +187,10 @@ class Asset extends Depreciable
         $this->attributes['expected_checkin'] = $value;
     }
 
+    public function findRequestable($value) {
+        return $this->id = $value;
+    }
+
     /**
      * This handles the custom field validation for assets
      *

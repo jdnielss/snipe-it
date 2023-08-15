@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'v2', 'middleware' => ['api', 'throttle:api']], function () {
+    Route::get('request', [Api\RequestableController::class, 'index'])->name('api.request.list');
+
+    Route::post('request', [Api\RequestableController::class, 'getRequestItem'])->name('api.request.item');
+});
+
+
 Route::group(['prefix' => 'v1', 'middleware' => ['api', 'throttle:api']], function () {
 
 
@@ -27,7 +34,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['api', 'throttle:api']], functi
                 'payload' => null,
             ], 404);
     });
-
 
     /**
      * Account routes

@@ -63,13 +63,13 @@
                                 @endif
                             </div> <!-- end row -->
 
-                            @if (!config('app.require_saml') && $snipeSettings->saml_enabled)
+                            <!-- @if (!config('app.require_saml') && $snipeSettings->saml_enabled)
                             <div class="row">
                                 <div class="text-right col-md-12">
                                     <a href="{{ route('saml.login')  }}">{{ trans('auth/general.saml_login')  }}</a>
                                 </div>
                             </div>
-                            @endif
+                            @endif -->
                         </div>
                         <div class="box-footer">
                             @if (config('app.require_saml'))
@@ -91,6 +91,12 @@
                         </div>
 
                     </div> <!-- end login box -->
+
+                    @if (!config('app.require_saml') && $snipeSettings->saml_enabled)
+                        <a href="{{ route('saml.login')  }}" class="btn btn-block btn-social btn-google">
+                            <i class="fa-brands fa-google"></i> {{ trans('auth/general.saml_login')  }}
+                        </a>
+                    @endif
 
                     @if (($snipeSettings->google_login=='1') && ($snipeSettings->google_client_id!='') && ($snipeSettings->google_client_secret!=''))
 

@@ -116,6 +116,7 @@ class LoginController extends Controller
                     Auth::login($user);
                 } else {
                     $username = $saml->getUsername();
+                    \Log::debug(print_r($saml), true);
                     \Log::debug("SAML user '$username' could not be found in database.");
                     $request->session()->flash('error', trans('auth/message.signin.error'));
                     $saml->clearData();
@@ -139,9 +140,6 @@ class LoginController extends Controller
                 \Log::debug("SAML page requested, but samlData seems empty.");
             }
         }
-
-
-
     }
 
     /**
