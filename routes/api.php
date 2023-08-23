@@ -20,6 +20,8 @@ Route::group(['prefix' => 'v2', 'middleware' => ['api', 'throttle:api']], functi
     Route::get('request', [Api\RequestableController::class, 'index'])->name('api.request.list');
 
     Route::post('request', [Api\RequestableController::class, 'getRequestItem'])->name('api.request.item');
+
+    Route::get('documents',[Api\DocumentController::class, 'index'])->name('api.document.list');
 });
 
 

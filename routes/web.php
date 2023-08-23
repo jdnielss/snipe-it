@@ -22,6 +22,7 @@ use App\Http\Controllers\ViewAssetsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -125,6 +126,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth', 'prefix' => 'modals'], function () {
     Route::get('{type}/{itemId?}', [ModalController::class, 'show'] )->name('modal.show');
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -520,3 +522,11 @@ Route::middleware(['auth'])->get(
     '/',
     [DashboardController::class, 'index']
 )->name('home');
+
+// Documents
+
+Route::resource('document', DocumentController::class);
+
+Route::get('document', [DocumentController::class, 'index'] )->name('document');
+
+Route::get('document/create', [DocumentController::class, 'create'] )->name('document.create');

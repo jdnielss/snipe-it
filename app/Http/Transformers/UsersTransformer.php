@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Collection;
 
+
 class UsersTransformer
 {
     public function transformUsers(Collection $users, $total)

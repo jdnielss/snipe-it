@@ -784,6 +784,12 @@
                             </li>
                         @endcan
 
+                        <li>
+                            <a href="{{ route('document') }}">
+                                <i class="fa fa-file fa-fw"></i>
+                                <span>Document</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </section>
